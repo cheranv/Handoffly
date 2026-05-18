@@ -1,0 +1,31 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 1rem 1rem;
+  background-color: #0f131d;
+  border-top: 0.2px solid #c7c4d7;
+  color: #c0c1ff;
+  z-index: 1;
+
+  .links-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    a {
+      text-decoration: none;
+      color: #c0c1ff;
+      font-size: 1rem;
+      line-height: 24px;
+      &:active {
+        color: #c0c1ff;
+      }
+      &:focus-visible {
+        color: #c0c1ff;
+      }
+    }
+  }
+}

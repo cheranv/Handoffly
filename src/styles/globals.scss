@@ -1,0 +1,88 @@
+@use "./variables" as *;
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%;
+  // min-height: 100vh;
+}
+
+body {
+  font-size: 1rem;
+  // min-height: 100vh;
+  font-family: "Inter", system-ui, sans-serif;
+  background-color: #0f131d;
+  color: $text-primary;
+}
+
+#root {
+  // min-height: 100vh;
+}
+
+// scrollbar hiding
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.main {
+  min-height: calc(100vh - 5rem);
+  display: flex;
+  position: relative;
+  background-color: #0f131d;
+  margin-top: 4.5rem;
+}
+
+.container {
+  // padding: 1.5rem 0;
+  // flex: 1 0 0;
+  // overflow-y: auto;
+  // overflow-x: hidden;
+  // margin: 0 auto;
+  width: calc(100% - 12.875rem);
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+.guest-container {
+  width: 100%;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+@mixin border-properties($cWidth, $cHeight, $cBorder, $cRadius) {
+  width: $cWidth;
+  height: $cHeight;
+  border: $cBorder;
+  border-radius: $cRadius;
+}
+
+@mixin font-properties($fontWeigh, $fontSize, $lineHeight, $fColor) {
+  font-weight: $fontWeigh;
+  font-size: $fontSize;
+  line-height: $lineHeight;
+  color: $fColor;
+}
+
+@mixin flex-properties($display, $align, $justify, $direction) {
+  display: $display;
+  align-items: $align;
+  justify-content: $justify;
+  flex-direction: $direction;
+}
+
+.p-16 {
+  padding: 1rem;
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
