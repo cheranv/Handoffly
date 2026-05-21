@@ -4,9 +4,10 @@ import Header from "./Header";
 import Footer from "./footer";
 
 export default function RootLayout() {
+  let token = true;
   return (
     <>
-      {true ? (
+      {token ? (
         <>
           <Header />
           <main className="main">
@@ -17,7 +18,7 @@ export default function RootLayout() {
           <Footer />
         </>
       ) : (
-        <Navigate to="/1" replace />
+        <Navigate to="login" replace />
       )}
     </>
   );

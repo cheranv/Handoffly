@@ -1,0 +1,37 @@
+$primary-text: #dce3f0;
+$secondary-text: rgba(255, 255, 255, 0.08);
+$border-color: #c7c4d7;
+$background-color: #908fa0;
+$box-background: rgba(255, 255, 255, 0.02);
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
+  label {
+    color: $border-color;
+    font-size: 0.75rem;
+    font-weight: 400;
+    margin: 1rem 0;
+    text-transform: capitalize;
+  }
+  input {
+    background-color: transparent;
+    color: $primary-text;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    border: 1px solid $secondary-text;
+    width: 100%;
+  }
+  textArea {
+    background-color: transparent;
+    color: $primary-text;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    border: 1px solid $secondary-text;
+    width: 100%;
+    min-height: 3lh; /* Optional: start at 3 lines */
+    max-height: 10lh; /* Optional: stop growing after 10 lines */
+  }
+}

@@ -1,0 +1,129 @@
+$primary-text: #dce3f0;
+$secondary-text: rgba(255, 255, 255, 0.08);
+$border-color: #c7c4d7;
+$background-color: #908fa0;
+$box-background: rgba(255, 255, 255, 0.02);
+$generate-color: #1000a9;
+$button-primary-color: #c0c1ff;
+
+.create-handoff {
+  display: block;
+  text-align: center;
+  .create-handoff-header {
+    width: 60%;
+    text-align: left;
+    margin: 1.5rem auto 0 auto;
+    h1 {
+      color: $primary-text;
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      margin: 1rem auto;
+      word-break: break-word;
+    }
+    h4 {
+      color: $border-color;
+      font-size: 1.25rem;
+      font-weight: 400;
+      word-break: break-word;
+    }
+  }
+  section {
+    padding: 1.5rem 3rem;
+    &:last-child {
+      margin-bottom: 3rem;
+      padding-right: 1rem;
+    }
+    &#project-details,
+    &#instruction,
+    &#project-links,
+    &#project-credentials {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .box {
+        padding: 1.5rem;
+        display: block;
+        text-align: center;
+        border: 1px solid $secondary-text;
+        width: 60dvw;
+        border-radius: 8px;
+        margin: 2rem 2rem 0 2rem;
+        background-color: $box-background;
+        h6 {
+          font-size: 20px;
+          font-weight: 500;
+          margin: 1.5rem 0;
+          text-align: left;
+        }
+        .flex-container {
+          width: 100%;
+
+          justify-content: flex-start;
+
+          gap: 1.5rem;
+          .w-50 {
+            width: calc(100% / 2 - 1.5rem);
+            &.two-icons {
+              width: calc(100% / 2 - 1.5rem - 2.625rem);
+            }
+          }
+          .w-30 {
+            width: 35%;
+          }
+          .w-60 {
+            width: 55%;
+          }
+          .w-10 {
+            width: 10%;
+          }
+          .delete-link,
+          .copy-link {
+            background-color: transparent;
+            border: none;
+            padding: 4px;
+            outline: none;
+            color: $primary-text;
+            margin-top: auto;
+          }
+        }
+        .add-more-link {
+          background-color: transparent;
+          border: none;
+          padding: 4px;
+          outline: none;
+          color: $primary-text;
+          margin: 1rem 0;
+          svg {
+            margin-right: 0.25rem;
+          }
+        }
+      }
+    }
+
+    &#buttons {
+      .flex-container {
+        width: 60%;
+        justify-content: flex-end;
+        text-align: left;
+        margin: 1.5rem auto 0 auto;
+        gap: 2rem;
+        margin-bottom: 1.5rem;
+        .create-project {
+          background-color: $generate-color;
+          color: $button-primary-color;
+          padding: 0.8125rem 1.5rem;
+          border-radius: 8px;
+          border: 1px;
+        }
+        .preview-project {
+          background-color: transparent;
+          color: $border-color;
+          padding: 0.8125rem 1.5rem;
+          border-radius: 8px;
+          border: 1px solid $secondary-text;
+        }
+      }
+    }
+  }
+}

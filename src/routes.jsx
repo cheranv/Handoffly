@@ -3,6 +3,7 @@ import Home from "./components/pages/Home";
 import { lazy } from "react";
 import ClientLayout from "./components/layouts/ClientRoot";
 import HandoffPage from "./components/pages/HandoffPage";
+import CreateProjectHandoff from "./components/pages/CreateProjectHandoff";
 const RootLayout = lazy(() => import("./components/layouts/Root"));
 const ErrorBoundary = lazy(() => import("./components/ErrorBoundary"));
 
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
           {
             index: true,
             Component: Home,
+          },
+          {
+            path: "/create",
+            Component: CreateProjectHandoff,
           },
         ],
       },

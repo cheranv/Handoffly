@@ -2,6 +2,17 @@ import React from "react";
 import "./Header.scss";
 import { Link } from "react-router";
 const Header = () => {
+  const token =
+    sessionStorage.getItem("accessToken") &&
+    sessionStorage.getItem("accessToken");
+
+  const handleLogin = () => {
+    if (token) {
+      sessionStorage.removeItem("accessToken");
+    } else {
+      sessionStorage.setItem("accessToken", "true");
+    }
+  };
   return (
     <div className="p-16 header-container">
       <div className="links-wrapper">
@@ -24,7 +35,9 @@ const Header = () => {
         <Link to="#documentation">How it works</Link>
       </div>
       <div className="button-wrappers">
-        <button className="unfilled-button">Login</button>
+        <button className="unfilled-button" onClick={handleLogin}>
+          {token ? "Logout" : "  Login"}
+        </button>
         <button className="filled-button">Get Started</button>
       </div>
     </div>
