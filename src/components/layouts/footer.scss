@@ -1,3 +1,5 @@
+$border-color: rgba(255, 255, 255, 0.08);
+
 .footer {
   display: flex;
   justify-content: space-between;
@@ -7,9 +9,12 @@
   width: 100%;
   padding: 1rem 1rem;
   background-color: #0f131d;
-  border-top: 0.2px solid #c7c4d7;
+  border-top: 0.2px solid $border-color;
   color: #c0c1ff;
   z-index: 1;
+  &.client-footer {
+    justify-content: end;
+  }
 
   .links-wrapper {
     display: flex;

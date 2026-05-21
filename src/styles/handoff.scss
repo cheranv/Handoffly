@@ -1,0 +1,190 @@
+$primary-text: #dce3f0;
+$secondary-text: rgba(255, 255, 255, 0.08);
+$border-color: #c7c4d7;
+$background-color: #908fa0;
+$box-background: rgba(255, 255, 255, 0.02);
+
+.handoff-page {
+  display: block;
+  text-align: center;
+  h1 {
+    color: $primary-text;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    margin: 1rem auto;
+    word-break: break-word;
+  }
+  h4 {
+    color: $border-color;
+    font-size: 1.25rem;
+    font-weight: 400;
+    width: 41rem;
+    margin: 1rem auto;
+    word-break: break-word;
+  }
+  section {
+    padding: 1.5rem 3rem;
+    &#links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .box {
+        padding: 1.5rem;
+        display: block;
+        text-align: center;
+        border: 1px solid $secondary-text;
+        width: 60dvw;
+        border-radius: 8px;
+        margin: 2rem 2rem 0 2rem;
+        background-color: $box-background;
+        .flex-container {
+          h6 {
+            font-size: 20px;
+            font-weight: 500;
+            margin: 1.5rem 0;
+          }
+          &.links-wrapper {
+            margin-top: 0;
+            border-bottom: 0.45px solid $secondary-text;
+
+            padding: 1.5rem 0;
+            &:last-child {
+              border-bottom: none;
+            }
+          }
+          .flex-inline {
+            display: flex;
+            gap: 1.5rem;
+            width: 50%;
+            &:nth-child(2) {
+              justify-content: flex-end;
+            }
+            .label {
+              font-size: 1rem;
+              color: $border-color;
+            }
+            .link {
+              font-size: 0.875rem;
+              color: $background-color;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
+
+            a {
+              font-size: 1rem;
+              color: $border-color;
+              cursor: pointer;
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+    &#credentials {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .box {
+        padding: 1.5rem;
+        display: block;
+        text-align: center;
+        border: 1px solid $secondary-text;
+        width: 60dvw;
+        border-radius: 8px;
+        margin: 2rem 2rem 0 2rem;
+        background-color: $box-background;
+
+        &.child {
+          width: 100%;
+          margin: 2rem 0;
+        }
+        .w-50 {
+          width: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          &:nth-child(even) {
+            .flex-container {
+              justify-content: flex-end;
+              gap: 1rem;
+            }
+          }
+        }
+        .flex-container {
+          width: 100%;
+          h6 {
+            font-size: 20px;
+            font-weight: 500;
+            margin: 1.5rem 0;
+          }
+          &.links-wrapper {
+            margin-top: 0;
+            border-bottom: 0.45px solid $secondary-text;
+            padding: 1.5rem 0;
+            &:last-child {
+              border-bottom: none;
+            }
+          }
+        }
+        .flex-inline {
+          display: flex;
+          gap: 1.5rem;
+          .label {
+            font-size: 1rem;
+            color: $border-color;
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+          }
+          .link {
+            font-size: 0.875rem;
+            color: $secondary-text;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+
+          a {
+            font-size: 1rem;
+            color: $border-color;
+            cursor: pointer;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+    &#notes {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      .box {
+        padding: 1.5rem;
+        display: block;
+        text-align: center;
+        border: 1px solid $secondary-text;
+        width: 60dvw;
+        border-radius: 8px;
+        margin: 2rem;
+        background-color: $box-background;
+
+        text-align: left;
+        .flex-container {
+          h6 {
+            font-size: 20px;
+            font-weight: 500;
+            margin: 1.5rem 0;
+          }
+          p {
+            font-size: 1rem;
+            color: border-color;
+          }
+        }
+      }
+    }
+  }
+  svg {
+    cursor: pointer;
+  }
+}

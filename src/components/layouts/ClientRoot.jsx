@@ -3,21 +3,20 @@ import { Navigate, Outlet, useLoaderData, useLocation } from "react-router";
 import Header from "./Header";
 import Footer from "./footer";
 
-export default function RootLayout() {
+export default function ClientLayout() {
   return (
     <>
       {true ? (
         <>
-          <Header />
-          <main className="main">
+          <main className="main client">
             <div className="guest-container">
               <Outlet />
             </div>
           </main>
-          <Footer />
+          <Footer client={true} />
         </>
       ) : (
-        <Navigate to="/1" replace />
+        <Navigate to="login" state={{ from: location }} replace />
       )}
     </>
   );

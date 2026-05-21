@@ -12,15 +12,13 @@ const Home = () => {
   const documentList = [
     {
       icon: <FilesIcons />,
-      heading: "Structured Project Handoff",
-      content:
-        "Organize links, files, and notes clearly into logical sections.",
+      heading: "Everything in one place",
+      content: "Links, logins, notes — organized clearly for your client.",
     },
     {
       icon: <ShieldIcons />,
-      heading: "Secure Credential Sharing",
-      content:
-        "Share login details safely with built-in encryption and accesslogs.",
+      heading: "Share credentials safely",
+      content: "Send login details without exposing them publicly.",
     },
 
     {
@@ -42,18 +40,15 @@ const Home = () => {
   const workingSteps = [
     {
       heading: `Create your project`,
-      content: `Setup a new project space and name it for your
-      client.`,
+      content: `Set up a clean handoff in seconds`,
     },
     {
       heading: `Add assets & links`,
-      content: `Upload files, paste links, and securely store
-      credentials.`,
+      content: `Paste everything your client needs`,
     },
     {
       heading: `Share single link`,
-      content: `Send a secure magic link to your client for
-      instant access.`,
+      content: `Send one link — done`,
     },
   ];
 
@@ -84,13 +79,13 @@ const Home = () => {
   return (
     <>
       <section id="features">
-        <h1>Send complete client handoffs in one secure link</h1>
+        <h1>Stop sending messy links. Deliver everything in one place.</h1>
         <h4>
-          Stop messy WhatsApp threads and scattered cloud links. Deliver
-          everything your client needs in one place.
+          Share links, credentials, and notes in a clean client-ready page. No
+          more WhatsApp threads or scattered docs.
         </h4>
         <div className="home-button-wrapper">
-          <button className="create-button">Create ur First Hand Off</button>
+          <button className="create-button">Create Your First Hand Off</button>
 
           <button className="demo-button">Book a Demo</button>
         </div>

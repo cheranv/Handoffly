@@ -1,9 +1,9 @@
 $header-background-color: #0f131d;
-$header-border: #c7c4d7;
+$border-color: rgba(255, 255, 255, 0.08);
 
 .header-container {
   background-color: $header-background-color;
-  border-bottom: 0.2px solid $header-border;
+  border-bottom: 0.2px solid $border-color;
   display: flex;
   align-items: center;
   justify-content: space-between;

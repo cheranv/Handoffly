@@ -36,6 +36,9 @@ body {
   position: relative;
   background-color: #0f131d;
   margin-top: 4.5rem;
+  &.client {
+    margin-top: 2rem;
+  }
 }
 
 .container {
@@ -55,6 +58,14 @@ body {
   cursor: pointer;
 }
 
+button {
+  font-family: "Inter", system-ui, sans-serif;
+  &:active,
+  &:focus-visible {
+    border: inherit;
+    outline: none;
+  }
+}
 @mixin border-properties($cWidth, $cHeight, $cBorder, $cRadius) {
   width: $cWidth;
   height: $cHeight;
