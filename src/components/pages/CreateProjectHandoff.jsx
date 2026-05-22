@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "../../styles/projectHandoff.scss";
 import { InputField, TextArea } from "../commonComponents/InputField";
+import { useNavigate } from "react-router";
 
 const CreateProjectHandoff = () => {
+  const Navigate = useNavigate();
   const [projectLinks, setProjectLinks] = useState([
     {
       label: "",
@@ -12,6 +14,7 @@ const CreateProjectHandoff = () => {
 
   const [loginCredentials, setLoginCredentials] = useState([
     {
+      label: "",
       username: "",
       password: "",
     },
@@ -23,6 +26,15 @@ const CreateProjectHandoff = () => {
       value: "",
     },
   ]);
+
+  const [projectInfo, setProjectInfo] = useState({
+    title: "",
+    description: "",
+    clientName: "",
+  });
+
+  const [clientGuidance, setClientGuidance] = useState("");
+  const [error, setError] = useState([]);
 
   const handleRemoveLink = (index) => {
     const updatedLinks = [...projectLinks];
@@ -65,6 +77,150 @@ const CreateProjectHandoff = () => {
     updatedCredentials.splice(index, 1);
     setLoginCredentials(updatedCredentials);
   };
+
+  const validateForm = ({
+    projectInfo,
+    projectLinks,
+    loginCredentials,
+    secretCredential,
+    clientInstructions,
+  }) => {
+    const errors = {};
+
+    // -----------------------------
+    // Project Info Validation
+    // -----------------------------
+    if (!projectInfo.title.trim()) {
+      errors.title = "Project title is required";
+    }
+
+    // -----------------------------
+    // Project Links Validation
+    // -----------------------------
+    const linkErrors = [];
+
+    projectLinks.forEach((link, index) => {
+      const currentError = {};
+
+      if (!link.label.trim()) {
+        currentError.label = "Link label is required";
+      }
+
+      if (!link.url.trim()) {
+        currentError.url = "URL is required";
+      } else {
+        try {
+          new URL(link.url);
+        } catch {
+          currentError.url = "Enter a valid URL";
+        }
+      }
+
+      if (Object.keys(currentError).length > 0) {
+        linkErrors[index] = currentError;
+      }
+    });
+
+    if (linkErrors.length > 0) {
+      errors.projectLinks = linkErrors;
+    }
+
+    // -----------------------------
+    // Login Credentials Validation
+    // -----------------------------
+    const loginErrors = [];
+
+    loginCredentials.forEach((credential, index) => {
+      const currentError = {};
+
+      if (!credential.label.trim()) {
+        currentError.label = "Label is required";
+      }
+
+      if (!credential.username.trim()) {
+        currentError.username = "Username is required";
+      }
+
+      if (!credential.password.trim()) {
+        currentError.password = "Password is required";
+      }
+
+      if (Object.keys(currentError).length > 0) {
+        loginErrors[index] = currentError;
+      }
+    });
+
+    if (loginErrors.length > 0) {
+      errors.loginCredentials = loginErrors;
+    }
+
+    // -----------------------------
+    // Secret Credentials Validation
+    // -----------------------------
+    const secretErrors = [];
+
+    secretCredential?.forEach((secret, index) => {
+      const currentError = {};
+
+      if (!secret.label.trim()) {
+        currentError.label = "Label is required";
+      }
+
+      if (!secret.value.trim()) {
+        currentError.value = "Value is required";
+      }
+
+      if (Object.keys(currentError).length > 0) {
+        secretErrors[index] = currentError;
+      }
+    });
+
+    if (secretErrors.length > 0) {
+      errors.secretCredentials = secretErrors;
+    }
+
+    return {
+      isValid: Object.keys(errors).length === 0,
+      errors,
+    };
+  };
+
+  const handlePreview = () => {
+    let check = validateForm({
+      projectInfo,
+      projectLinks,
+      loginCredentials,
+      secretCredential,
+      clientGuidance,
+    });
+
+    if (check?.isValid === false) {
+      console.log(check.errors);
+      setError(check.errors);
+      return;
+    }
+    let handoffData = {
+      projectInfo,
+      projectLinks,
+      loginCredentials,
+      secretCredential,
+      clientGuidance,
+    };
+    localStorage.setItem("handoff", JSON.stringify(handoffData));
+    Navigate("/preview/1");
+  };
+  const handleGenerate = () => {
+    let handoffData = {
+      projectInfo,
+      projectLinks,
+      loginCredentials,
+      secretCredential,
+      clientGuidance,
+    };
+    console.log(handoffData);
+    localStorage.setItem("handoff", JSON.stringify(handoffData));
+    Navigate("/share/1");
+  };
   return (
     <div className="create-handoff">
       <div className="create-handoff-header">
@@ -83,19 +239,32 @@ const CreateProjectHandoff = () => {
                 label="Project Name"
                 type="text"
                 placeholder="Enter project name"
+                value={projectInfo.title}
+                onChange={(e) =>
+                  setProjectInfo({ ...projectInfo, title: e.target.value })
+                }
               />
+              <p className="error">{error?.title}</p>
             </div>
             <div className="w-50">
               <InputField
                 label="Client Name"
                 type="text"
                 placeholder="Enter client name"
+                value={projectInfo.clientName}
+                onChange={(e) =>
+                  setProjectInfo({ ...projectInfo, clientName: e.target.value })
+                }
               />
             </div>
           </div>
           <TextArea
             label="Project Description"
             placeholder="Enter project description"
+            value={projectInfo.description}
+            onChange={(e) =>
+              setProjectInfo({ ...projectInfo, description: e.target.value })
+            }
           />
         </div>
       </section>
@@ -116,6 +285,7 @@ const CreateProjectHandoff = () => {
                   }}
                   placeholder="Enter label"
                 />
+                <p className="error">{error?.projectLinks?.[index]?.label}</p>
               </div>
               <div className="w-60">
                 <InputField
@@ -129,6 +299,7 @@ const CreateProjectHandoff = () => {
                     setProjectLinks(updatedLinks);
                   }}
                 />
+                <p className="error">{error?.projectLinks?.[index]?.url}</p>
               </div>
               {projectLinks.length > 1 && (
                 <button
@@ -176,13 +347,29 @@ const CreateProjectHandoff = () => {
       <section id="project-credentials">
         <div className="box">
           <h6>Login Credentials </h6>
-          {loginCredentials.map((link, index) => (
-            <div className="flex-container" key={`link-${index}`}>
-              <div className="w-50 two-icons">
+          {loginCredentials.map((logs, index) => (
+            <div className="flex-container" key={`logs-${index}`}>
+              <div className="w-30 two-icons">
+                <InputField
+                  label={`cmslabel`}
+                  type="text"
+                  value={logs.label}
+                  onChange={(e) => {
+                    const updatedLinks = [...loginCredentials];
+                    updatedLinks[index].label = e.target.value;
+                    setLoginCredentials(updatedLinks);
+                  }}
+                  placeholder="Enter username"
+                />
+                <p className="error">
+                  {error?.loginCredentials?.[index]?.label}
+                </p>
+              </div>
+              <div className="w-30 two-icons">
                 <InputField
                   label={`username`}
                   type="text"
-                  value={link.username}
+                  value={logs.username}
                   onChange={(e) => {
                     const updatedLinks = [...loginCredentials];
                     updatedLinks[index].username = e.target.value;
@@ -190,22 +377,31 @@ const CreateProjectHandoff = () => {
                   }}
                   placeholder="Enter username"
                 />
+                <p className="error">
+                  {error?.loginCredentials?.[index]?.username}
+                </p>
               </div>
-              <div className="w-50 two-icons">
+              <div className="w-30 two-icons">
                 <InputField
                   label={`password`}
                   type="text"
                   placeholder="Enter password"
-                  value={link.url}
+                  value={logs.password}
                   onChange={(e) => {
                     const updatedLinks = [...loginCredentials];
                     updatedLinks[index].password = e.target.value;
                     setLoginCredentials(updatedLinks);
                   }}
                 />
+                <p className="error">
+                  {error?.loginCredentials?.[index]?.password}
+                </p>
               </div>
 
-              <button className="copy-link cursor-pointer">
+              <button
+                className="copy-link cursor-pointer"
+                onClick={handleRemoveCredential}
+              >
                 <svg
                   width="13"
                   height="16"
@@ -281,19 +477,25 @@ const CreateProjectHandoff = () => {
                   }}
                   placeholder="Enter username"
                 />
+                <p className="error">
+                  {error?.secretCredentials?.[index]?.label}
+                </p>
               </div>
               <div className="w-50 two-icons">
                 <InputField
                   label={`Value`}
                   type="text"
                   placeholder="Enter Value"
-                  value={link.url}
+                  value={link.value}
                   onChange={(e) => {
                     const updatedLinks = [...secretCredential];
-                    updatedLinks[index].Value = e.target.value;
+                    updatedLinks[index].value = e.target.value;
                     setSecretCredential(updatedLinks);
                   }}
                 />
+                <p className="error">
+                  {error?.secretCredentials?.[index]?.value}
+                </p>
               </div>
 
               <button className="copy-link cursor-pointer">
@@ -365,15 +567,23 @@ const CreateProjectHandoff = () => {
           <TextArea
             label="Client Guidance"
             placeholder="Add specific instructions for the client, next steps, or maintenance details..."
+            value={clientGuidance}
+            onChange={(e) => setClientGuidance(e.target.value)}
           />
         </div>
       </section>
       <section id="buttons">
         <div className="flex-container">
-          <button className="preview-project cursor-pointer">
+          <button
+            className="preview-project cursor-pointer"
+            onClick={handlePreview}
+          >
             Preview Handoff
           </button>
-          <button className="create-project cursor-pointer">
+          <button
+            className="create-project cursor-pointer"
+            onClick={handleGenerate}
+          >
             Generate Handoff
           </button>
         </div>

@@ -7,6 +7,8 @@ import {
   PaletteIcons,
   ShieldIcons,
 } from "../../assets/Icons/LandingPageIcons";
+import Header from "../layouts/Header";
+import Footer from "../layouts/footer";
 
 const Home = () => {
   const documentList = [
@@ -78,82 +80,94 @@ const Home = () => {
   ];
   return (
     <>
-      <section id="features">
-        <h1>Stop sending messy links. Deliver everything in one place.</h1>
-        <h4>
-          Share links, credentials, and notes in a clean client-ready page. No
-          more WhatsApp threads or scattered docs.
-        </h4>
-        <div className="home-button-wrapper">
-          <button className="create-button">Create Your First Hand Off</button>
+      <Header />
+      <main className="main">
+        <div className="guest-container">
+          <>
+            <section id="features">
+              <h1>
+                Stop sending messy links. Deliver everything in one place.
+              </h1>
+              <h4>
+                Share links, credentials, and notes in a clean client-ready
+                page. No more WhatsApp threads or scattered docs.
+              </h4>
+              <div className="home-button-wrapper">
+                <button className="create-button">
+                  Create Your First Hand Off
+                </button>
 
-          <button className="demo-button">Book a Demo</button>
-        </div>
-        <div className="handoffly-image-feature">
-          <img
-            src="/src/assets/images/screen.png"
-            alt="handoffly image"
-            lazy
-          ></img>
-        </div>
-        <h1>Everything your client needs. In one place.</h1>
-        <div className="flex-container">
-          {documentList.map((item) => (
-            <div className="box">
-              <div className="box-icon">{item.icon}</div>
-              <p>{item.heading}</p>
-              <span>{item.content}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-      <section id="documentation" className="documentation">
-        <h1>How it works</h1>
-        <div className="flex-container">
-          {workingSteps.map((item, index) => (
-            <div className="box">
-              <div className="box-icon">{index + 1}</div>
-              <p>{item.heading}</p>
-              <span>{item.content}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="pricing">
-        <h1>Simple, transparent pricing</h1>
-        <div className="flex-container">
-          {plansList.map((item) => (
-            <div className="box">
-              <div className="box-inner">
-                <div>
-                  <div className="box-icon">{item.price}</div>
-                  <p>{item.heading}</p>
-                  {item.content.map((item) => (
-                    <p className="checklist">
-                      <span>
-                        <CheckIcons />
-                      </span>{" "}
-                      <span>{item}</span>
-                    </p>
-                  ))}
-                </div>
-                <button>{item.text}</button>
+                <button className="demo-button">Book a Demo</button>
               </div>
-            </div>
-          ))}
+              <div className="handoffly-image-feature">
+                <img
+                  src="/src/assets/images/screen.png"
+                  alt="handoffly image"
+                  lazy
+                ></img>
+              </div>
+              <h1>Everything your client needs. In one place.</h1>
+              <div className="flex-container">
+                {documentList.map((item) => (
+                  <div className="box">
+                    <div className="box-icon">{item.icon}</div>
+                    <p>{item.heading}</p>
+                    <span>{item.content}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+            <section id="documentation" className="documentation">
+              <h1>How it works</h1>
+              <div className="flex-container">
+                {workingSteps.map((item, index) => (
+                  <div className="box">
+                    <div className="box-icon">{index + 1}</div>
+                    <p>{item.heading}</p>
+                    <span>{item.content}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section id="pricing">
+              <h1>Simple, transparent pricing</h1>
+              <div className="flex-container">
+                {plansList.map((item) => (
+                  <div className="box">
+                    <div className="box-inner">
+                      <div>
+                        <div className="box-icon">{item.price}</div>
+                        <p>{item.heading}</p>
+                        {item.content.map((item) => (
+                          <p className="checklist">
+                            <span>
+                              <CheckIcons />
+                            </span>{" "}
+                            <span>{item}</span>
+                          </p>
+                        ))}
+                      </div>
+                      <button>{item.text}</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+            <section id="get-started">
+              <div className="get-started-box">
+                <h1>Start your first handoff today</h1>
+                <p>
+                  Join 2,000+ designers and agencies delivering better client
+                  experiences.
+                </p>
+                <button className="free-button">Get Started For Free</button>
+              </div>
+            </section>
+          </>
         </div>
-      </section>
-      <section id="get-started">
-        <div className="get-started-box">
-          <h1>Start your first handoff today</h1>
-          <p>
-            Join 2,000+ designers and agencies delivering better client
-            experiences.
-          </p>
-          <button className="free-button">Get Started For Free</button>
-        </div>
-      </section>
+      </main>
+      <Footer />
     </>
   );
 };

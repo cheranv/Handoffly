@@ -4,7 +4,9 @@ import Header from "./Header";
 import Footer from "./footer";
 
 export default function RootLayout() {
-  let token = true;
+  let token =
+    sessionStorage.getItem("accessToken") &&
+    sessionStorage.getItem("accessToken");
   return (
     <>
       {token ? (
@@ -18,7 +20,7 @@ export default function RootLayout() {
           <Footer />
         </>
       ) : (
-        <Navigate to="login" replace />
+        <Navigate to="/home" replace />
       )}
     </>
   );

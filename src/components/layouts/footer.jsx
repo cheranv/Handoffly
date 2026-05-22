@@ -3,8 +3,11 @@ import "./footer.scss";
 import { Link } from "react-router";
 
 const Footer = ({ client = false }) => {
+  const token =
+    sessionStorage.getItem("accessToken") &&
+    sessionStorage.getItem("accessToken");
   return (
-    <div className={`footer ${client ? "client-footer" : ""}`}>
+    <div className={`footer ${client || token ? "client-footer" : ""}`}>
       {client ? null : (
         <div className="links-wrapper">
           <Link>Terms</Link>

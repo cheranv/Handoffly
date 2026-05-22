@@ -1,16 +1,20 @@
 import React from "react";
 import "./Header.scss";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 const Header = () => {
   const token =
     sessionStorage.getItem("accessToken") &&
     sessionStorage.getItem("accessToken");
 
+  const Navigate = useNavigate();
+
   const handleLogin = () => {
     if (token) {
       sessionStorage.removeItem("accessToken");
+      Navigate("/home");
     } else {
       sessionStorage.setItem("accessToken", "true");
+      Navigate("/create");
     }
   };
   return (
@@ -29,16 +33,21 @@ const Header = () => {
           />
         </svg>
       </div>
-      <div>
-        <Link>Pricing</Link>
-        <Link to="#features">Features</Link>
-        <Link to="#documentation">How it works</Link>
-      </div>
+      {!token && (
+        <div>
+          <Link>Pricing</Link>
+          <Link to="#features">Features</Link>
+          <Link to="#documentation">How it works</Link>
+        </div>
+      )}
       <div className="button-wrappers">
-        <button className="unfilled-button" onClick={handleLogin}>
+        <button
+          className={`${token ? "filled-button" : "unfilled-button"}`}
+          onClick={handleLogin}
+        >
           {token ? "Logout" : "  Login"}
         </button>
-        <button className="filled-button">Get Started</button>
+        {!token && <button className="filled-button">Get Started</button>}
       </div>
     </div>
   );
