@@ -42,6 +42,10 @@ export const router = createBrowserRouter([
         path: ":id",
         Component: HandoffPage,
       },
+      {
+        path: "demo",
+        Component: HandoffPage,
+      },
     ],
   },
   {

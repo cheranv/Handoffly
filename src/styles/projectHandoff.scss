@@ -58,18 +58,31 @@ $button-primary-color: #c0c1ff;
         }
         .flex-container {
           width: 100%;
-
+          align-items: flex-start;
           justify-content: flex-start;
 
           gap: 1.5rem;
           .w-50 {
             width: calc(100% / 2 - 1.5rem);
+
             &.two-icons {
               width: calc(100% / 2 - 1.5rem - 2.625rem);
+            }
+            position: relative;
+            .password-icons {
+              position: absolute;
+              top: 3.875rem;
+              right: 0.625rem;
             }
           }
           .w-30 {
             width: 29%;
+            position: relative;
+            .password-icons {
+              position: absolute;
+              top: 3.875rem;
+              right: 0.625rem;
+            }
           }
           .w-60 {
             width: 60%;

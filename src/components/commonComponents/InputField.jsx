@@ -6,6 +6,7 @@ export const InputField = ({
   placeholder,
   value = "",
   onChange = () => {},
+  className = "",
 }) => {
   return (
     <div className="input-field">
@@ -15,6 +16,7 @@ export const InputField = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        className={className}
       />
     </div>
   );
@@ -25,6 +27,7 @@ export const TextArea = ({
   placeholder,
   value = "",
   onChange = () => {},
+  className = "",
 }) => {
   return (
     <div className="input-field">
@@ -34,6 +37,8 @@ export const TextArea = ({
         rows="6"
         value={value}
         onChange={onChange}
+        className={className}
+        style={{ resize: "none" }}
       />
     </div>
   );

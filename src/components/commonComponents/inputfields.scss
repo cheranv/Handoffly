@@ -23,6 +23,11 @@ $box-background: rgba(255, 255, 255, 0.02);
     padding: 1rem;
     border: 1px solid $secondary-text;
     width: 100%;
+    outline: none;
+    transition: 0.2s ease;
+    &.error {
+      border: 1px solid #f87171;
+    }
   }
   textArea {
     background-color: transparent;
