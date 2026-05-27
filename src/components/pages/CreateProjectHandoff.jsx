@@ -3,6 +3,7 @@ import "../../styles/projectHandoff.scss";
 import { InputField, TextArea } from "../commonComponents/InputField";
 import { useNavigate } from "react-router";
 import Toaster from "../commonComponents/Toaster";
+import { supabase } from "../../lib/supabase";
 
 const CreateProjectHandoff = () => {
   const Navigate = useNavigate();
@@ -226,9 +227,10 @@ const CreateProjectHandoff = () => {
       clientGuidance,
     };
     localStorage.setItem("handoff", JSON.stringify(handoffData));
+
     Navigate("/preview/1");
   };
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     let check = validateForm({
       projectInfo,
       projectLinks,
@@ -252,8 +254,27 @@ const CreateProjectHandoff = () => {
       secretCredential,
       clientGuidance,
     };
-    localStorage.setItem("handoff", JSON.stringify(handoffData));
-    Navigate("/share/1");
+    // localStorage.setItem("handoff", JSON.stringify(handoffData));
+    const { data, error } = await supabase
+      .from("projects")
+      .insert([
+        {
+          data: {
+            projectInfo,
+            projectLinks,
+            loginCredentials,
+            secretCredential,
+            clientGuidance,
+          },
+        },
+      ])
+      .select();
+    if (error) {
+    } else {
+      console.log(data);
+      // Navigate("/preview/1");
+      Navigate(`/share/${data[0].id}`);
+    }
   };
   return (
     <div className="create-handoff">

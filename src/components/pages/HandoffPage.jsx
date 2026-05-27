@@ -1,62 +1,60 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/handoff.scss";
-import { useLocation } from "react-router";
+import { useLocation, useParams } from "react-router";
 import demodata from "../commonComponents/demoData.json";
+import { supabase } from "../../lib/supabase";
 
 const HandoffPage = () => {
   const location = useLocation();
 
+  const { id } = useParams();
   const path = location.pathname?.split("/");
   let key = path[path.length - 1];
-  console.log(path, key, demodata);
 
-  const handOffData =
-    key == "demo"
-      ? demodata
-      : localStorage.getItem("handoff") &&
-        JSON.parse(localStorage.getItem("handoff"));
+  const [handOffData, setHandOffData] = useState({});
+
   const [visiblePasswords, setVisiblePasswords] = useState({});
   const [visibleKeys, setVisibleKeys] = useState({});
 
-  const links = handOffData?.projectLinks.map((link, index) => {
-    return {
-      icon: (
-        <svg
-          width="19"
-          height="10"
-          viewBox="0 0 19 10"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M8.30764 9.07686H4.53843C3.2828 9.07686 2.21248 8.63441 1.32749 7.74952C0.442497 6.86464 0 5.79445 0 4.53897C0 3.28349 0.442497 2.21312 1.32749 1.32787C2.21248 0.442625 3.2828 0 4.53843 0H8.30764V1.49996H4.53843C3.69868 1.49996 2.98234 1.79644 2.38939 2.38939C1.79644 2.98234 1.49996 3.69868 1.49996 4.53843C1.49996 5.37817 1.79644 6.09452 2.38939 6.68747C2.98234 7.28042 3.69868 7.57689 4.53843 7.57689H8.30764V9.07686V9.07686M5.74998 5.28841V3.78845H13.2499V5.28841H5.74998V5.28841M10.6923 9.07686V7.57689H14.4615C15.3012 7.57689 16.0176 7.28042 16.6105 6.68747C17.2035 6.09452 17.5 5.37817 17.5 4.53843C17.5 3.69868 17.2035 2.98234 16.6105 2.38939C16.0176 1.79644 15.3012 1.49996 14.4615 1.49996H10.6923V0H14.4615C15.7171 0 16.7874 0.442444 17.6724 1.32733C18.5574 2.21222 18.9999 3.2824 18.9999 4.53788C18.9999 5.79337 18.5574 6.86373 17.6724 7.74898C16.7874 8.63423 15.7171 9.07686 14.4615 9.07686H10.6923V9.07686"
-            fill="#C7C4D7"
-          />
-        </svg>
-      ),
-      label: link.label,
-      link: link.url,
-    };
-  }) || [
-    {
-      icon: (
-        <svg
-          width="19"
-          height="10"
-          viewBox="0 0 19 10"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M8.30764 9.07686H4.53843C3.2828 9.07686 2.21248 8.63441 1.32749 7.74952C0.442497 6.86464 0 5.79445 0 4.53897C0 3.28349 0.442497 2.21312 1.32749 1.32787C2.21248 0.442625 3.2828 0 4.53843 0H8.30764V1.49996H4.53843C3.69868 1.49996 2.98234 1.79644 2.38939 2.38939C1.79644 2.98234 1.49996 3.69868 1.49996 4.53843C1.49996 5.37817 1.79644 6.09452 2.38939 6.68747C2.98234 7.28042 3.69868 7.57689 4.53843 7.57689H8.30764V9.07686V9.07686M5.74998 5.28841V3.78845H13.2499V5.28841H5.74998V5.28841M10.6923 9.07686V7.57689H14.4615C15.3012 7.57689 16.0176 7.28042 16.6105 6.68747C17.2035 6.09452 17.5 5.37817 17.5 4.53843C17.5 3.69868 17.2035 2.98234 16.6105 2.38939C16.0176 1.79644 15.3012 1.49996 14.4615 1.49996H10.6923V0H14.4615C15.7171 0 16.7874 0.442444 17.6724 1.32733C18.5574 2.21222 18.9999 3.2824 18.9999 4.53788C18.9999 5.79337 18.5574 6.86373 17.6724 7.74898C16.7874 8.63423 15.7171 9.07686 14.4615 9.07686H10.6923V9.07686"
-            fill="#C7C4D7"
-          />
-        </svg>
-      ),
-      label: "",
-      link: "",
-    },
-  ];
+  // const links = handOffData?.projectLinks.map((link, index) => {
+  //   return {
+  //     icon: (
+  //       <svg
+  //         width="19"
+  //         height="10"
+  //         viewBox="0 0 19 10"
+  //         fill="none"
+  //         xmlns="http://www.w3.org/2000/svg"
+  //       >
+  //         <path
+  //           d="M8.30764 9.07686H4.53843C3.2828 9.07686 2.21248 8.63441 1.32749 7.74952C0.442497 6.86464 0 5.79445 0 4.53897C0 3.28349 0.442497 2.21312 1.32749 1.32787C2.21248 0.442625 3.2828 0 4.53843 0H8.30764V1.49996H4.53843C3.69868 1.49996 2.98234 1.79644 2.38939 2.38939C1.79644 2.98234 1.49996 3.69868 1.49996 4.53843C1.49996 5.37817 1.79644 6.09452 2.38939 6.68747C2.98234 7.28042 3.69868 7.57689 4.53843 7.57689H8.30764V9.07686V9.07686M5.74998 5.28841V3.78845H13.2499V5.28841H5.74998V5.28841M10.6923 9.07686V7.57689H14.4615C15.3012 7.57689 16.0176 7.28042 16.6105 6.68747C17.2035 6.09452 17.5 5.37817 17.5 4.53843C17.5 3.69868 17.2035 2.98234 16.6105 2.38939C16.0176 1.79644 15.3012 1.49996 14.4615 1.49996H10.6923V0H14.4615C15.7171 0 16.7874 0.442444 17.6724 1.32733C18.5574 2.21222 18.9999 3.2824 18.9999 4.53788C18.9999 5.79337 18.5574 6.86373 17.6724 7.74898C16.7874 8.63423 15.7171 9.07686 14.4615 9.07686H10.6923V9.07686"
+  //           fill="#C7C4D7"
+  //         />
+  //       </svg>
+  //     ),
+  //     label: link.label,
+  //     link: link.url,
+  //   };
+  // }) || [
+  //   {
+  //     icon: (
+  //       <svg
+  //         width="19"
+  //         height="10"
+  //         viewBox="0 0 19 10"
+  //         fill="none"
+  //         xmlns="http://www.w3.org/2000/svg"
+  //       >
+  //         <path
+  //           d="M8.30764 9.07686H4.53843C3.2828 9.07686 2.21248 8.63441 1.32749 7.74952C0.442497 6.86464 0 5.79445 0 4.53897C0 3.28349 0.442497 2.21312 1.32749 1.32787C2.21248 0.442625 3.2828 0 4.53843 0H8.30764V1.49996H4.53843C3.69868 1.49996 2.98234 1.79644 2.38939 2.38939C1.79644 2.98234 1.49996 3.69868 1.49996 4.53843C1.49996 5.37817 1.79644 6.09452 2.38939 6.68747C2.98234 7.28042 3.69868 7.57689 4.53843 7.57689H8.30764V9.07686V9.07686M5.74998 5.28841V3.78845H13.2499V5.28841H5.74998V5.28841M10.6923 9.07686V7.57689H14.4615C15.3012 7.57689 16.0176 7.28042 16.6105 6.68747C17.2035 6.09452 17.5 5.37817 17.5 4.53843C17.5 3.69868 17.2035 2.98234 16.6105 2.38939C16.0176 1.79644 15.3012 1.49996 14.4615 1.49996H10.6923V0H14.4615C15.7171 0 16.7874 0.442444 17.6724 1.32733C18.5574 2.21222 18.9999 3.2824 18.9999 4.53788C18.9999 5.79337 18.5574 6.86373 17.6724 7.74898C16.7874 8.63423 15.7171 9.07686 14.4615 9.07686H10.6923V9.07686"
+  //           fill="#C7C4D7"
+  //         />
+  //       </svg>
+  //     ),
+  //     label: "",
+  //     link: "",
+  //   },
+  // ];
 
   const togglePasswordVisibility = (index) => {
     setVisiblePasswords((prev) => ({
@@ -72,8 +70,28 @@ const HandoffPage = () => {
     }));
   };
 
-  const Notes = handOffData?.clientGuidance;
-  useEffect(() => {}, []);
+  const getProject = async () => {
+    const { data, error } = await supabase
+      .from("projects")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    console.log(data);
+    setHandOffData(data?.project);
+  };
+  useEffect(() => {
+    if (!id) {
+      setHandOffData(
+        key == "demo"
+          ? demodata
+          : localStorage.getItem("handoff") &&
+              JSON.parse(localStorage.getItem("handoff"))
+      );
+    } else {
+      getProject();
+    }
+  }, []);
   return (
     <div className="handoff-page">
       <h1>{handOffData.projectInfo?.title}</h1>
@@ -85,10 +103,23 @@ const HandoffPage = () => {
             <h6>Project Links</h6>
           </div>
 
-          {links.map((link, index) => (
+          {handOffData?.projectLinks?.map((link, index) => (
             <div className="flex-container links-wrapper " key={index}>
               <div className="flex-inline">
-                <p>{link.icon}</p>
+                <p>
+                  <svg
+                    width="19"
+                    height="10"
+                    viewBox="0 0 19 10"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8.30764 9.07686H4.53843C3.2828 9.07686 2.21248 8.63441 1.32749 7.74952C0.442497 6.86464 0 5.79445 0 4.53897C0 3.28349 0.442497 2.21312 1.32749 1.32787C2.21248 0.442625 3.2828 0 4.53843 0H8.30764V1.49996H4.53843C3.69868 1.49996 2.98234 1.79644 2.38939 2.38939C1.79644 2.98234 1.49996 3.69868 1.49996 4.53843C1.49996 5.37817 1.79644 6.09452 2.38939 6.68747C2.98234 7.28042 3.69868 7.57689 4.53843 7.57689H8.30764V9.07686V9.07686M5.74998 5.28841V3.78845H13.2499V5.28841H5.74998V5.28841M10.6923 9.07686V7.57689H14.4615C15.3012 7.57689 16.0176 7.28042 16.6105 6.68747C17.2035 6.09452 17.5 5.37817 17.5 4.53843C17.5 3.69868 17.2035 2.98234 16.6105 2.38939C16.0176 1.79644 15.3012 1.49996 14.4615 1.49996H10.6923V0H14.4615C15.7171 0 16.7874 0.442444 17.6724 1.32733C18.5574 2.21222 18.9999 3.2824 18.9999 4.53788C18.9999 5.79337 18.5574 6.86373 17.6724 7.74898C16.7874 8.63423 15.7171 9.07686 14.4615 9.07686H10.6923V9.07686"
+                      fill="#C7C4D7"
+                    />
+                  </svg>
+                </p>
                 <p className="label"> {link.label}</p>
               </div>
               <div className="flex-inline">
@@ -131,7 +162,7 @@ const HandoffPage = () => {
             </svg>
           </div>
 
-          {handOffData?.loginCredentials.map((item, index) => (
+          {handOffData?.loginCredentials?.map((item, index) => (
             <div className="box child " key={index}>
               <div className="flex-inline">
                 <p className="label"> {item.label}</p>
@@ -187,7 +218,7 @@ const HandoffPage = () => {
               </div>
             </div>
           ))}
-          {handOffData?.secretCredential.map((item, index) => (
+          {handOffData?.secretCredential?.map((item, index) => (
             <div className="box child " key={index}>
               <div className="flex-inline">
                 <p className="label"> {item.label}</p>
@@ -248,7 +279,7 @@ const HandoffPage = () => {
           ))}
         </div>
       </section>
-      {Notes && (
+      {handOffData?.clientGuidance && (
         <section id="notes">
           <div className="box">
             <div className="flex-container">
@@ -266,7 +297,7 @@ const HandoffPage = () => {
                 />
               </svg>
             </div>
-            <p>{Notes}</p>
+            <p>{handOffData?.clientGuidance}</p>
           </div>
         </section>
       )}
