@@ -13,8 +13,8 @@ const Header = () => {
       sessionStorage.removeItem("accessToken");
       Navigate("/home");
     } else {
-      sessionStorage.setItem("accessToken", "true");
-      Navigate("/create");
+      sessionStorage.setItem("accessToken", true);
+      Navigate("/");
     }
   };
   return (

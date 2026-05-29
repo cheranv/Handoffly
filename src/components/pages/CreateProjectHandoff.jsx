@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/projectHandoff.scss";
 import { InputField, TextArea } from "../commonComponents/InputField";
 import { useNavigate } from "react-router";
@@ -34,6 +34,10 @@ const CreateProjectHandoff = () => {
     description: "",
     clientName: "",
   });
+
+  const previewData =
+    localStorage.getItem("project") &&
+    JSON.parse(localStorage.getItem("project"));
 
   const [clientGuidance, setClientGuidance] = useState("");
   const [error, setError] = useState([]);
@@ -219,16 +223,16 @@ const CreateProjectHandoff = () => {
       });
       return;
     }
-    let handoffData = {
+    let project = {
       projectInfo,
       projectLinks,
       loginCredentials,
       secretCredential,
       clientGuidance,
     };
-    localStorage.setItem("handoff", JSON.stringify(handoffData));
+    localStorage.setItem("project", JSON.stringify({ project }));
 
-    Navigate("/preview/1");
+    Navigate("/preview");
   };
   const handleGenerate = async () => {
     let check = validateForm({
@@ -254,12 +258,11 @@ const CreateProjectHandoff = () => {
       secretCredential,
       clientGuidance,
     };
-    // localStorage.setItem("handoff", JSON.stringify(handoffData));
     const { data, error } = await supabase
       .from("projects")
       .insert([
         {
-          data: {
+          project: {
             projectInfo,
             projectLinks,
             loginCredentials,
@@ -271,11 +274,21 @@ const CreateProjectHandoff = () => {
       .select();
     if (error) {
     } else {
-      console.log(data);
       // Navigate("/preview/1");
       Navigate(`/share/${data[0].id}`);
+      localStorage.removeItem("project");
     }
   };
+
+  useEffect(() => {
+    if (Object.keys(previewData || {}).length > 0 && previewData) {
+      setProjectInfo(previewData?.project?.projectInfo);
+      setProjectLinks(previewData?.project?.projectLinks);
+      setLoginCredentials(previewData?.project?.loginCredentials);
+      setSecretCredential(previewData?.project?.secretCredential);
+      setClientGuidance(previewData?.project?.clientGuidance);
+    }
+  }, []);
   return (
     <div className="create-handoff">
       <div className="create-handoff-header">

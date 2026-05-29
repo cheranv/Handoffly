@@ -1,9 +1,11 @@
-import { Navigate, Outlet, useLoaderData, useLocation } from "react-router";
+import { Navigate, Outlet, useNavigation } from "react-router";
 
-import Header from "./Header";
-import Footer from "./footer";
+import MainHeader from "./MainHeader";
+import SideNav from "./SideNav";
+import Loader from "../commonComponents/Loader";
 
 export default function RootLayout() {
+  const navigation = useNavigation();
   let token =
     sessionStorage.getItem("accessToken") &&
     sessionStorage.getItem("accessToken");
@@ -11,13 +13,14 @@ export default function RootLayout() {
     <>
       {token ? (
         <>
-          <Header />
-          <main className="main">
-            <div className="guest-container">
+          <Loader show={navigation.state === "loading"} />
+          <MainHeader />
+          <main className="main pages">
+            <SideNav />
+            <div className="container">
               <Outlet />
             </div>
           </main>
-          <Footer />
         </>
       ) : (
         <Navigate to="/home" replace />

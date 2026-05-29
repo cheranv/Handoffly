@@ -7,6 +7,21 @@ $box-background: rgba(255, 255, 255, 0.02);
 .handoff-page {
   display: block;
   text-align: center;
+  &.user {
+    text-align: left;
+    h4 {
+      width: unset !important;
+    }
+    section {
+      padding: 1.5rem 0 !important;
+      justify-content: flex-start !important;
+      .box {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+      }
+    }
+  }
   h1 {
     color: $primary-text;
     font-size: 2.5rem;
@@ -19,7 +34,6 @@ $box-background: rgba(255, 255, 255, 0.02);
     color: $border-color;
     font-size: 1.25rem;
     font-weight: 400;
-    width: 41rem;
     margin: 1rem auto;
     word-break: break-word;
   }
@@ -37,11 +51,12 @@ $box-background: rgba(255, 255, 255, 0.02);
         display: block;
         text-align: center;
         border: 1px solid $secondary-text;
-        width: 60dvw;
+        width: 80dvw;
         border-radius: 8px;
         margin: 2rem 2rem 0 2rem;
         background-color: $box-background;
         .flex-container {
+          flex-wrap: wrap;
           h6 {
             font-size: 20px;
             font-weight: 500;
@@ -62,10 +77,14 @@ $box-background: rgba(255, 255, 255, 0.02);
             width: 50%;
             &:nth-child(2) {
               justify-content: flex-end;
+              .link {
+                text-align: right !important;
+              }
             }
             .label {
               font-size: 1rem;
               color: $border-color;
+              text-align: left;
             }
             .link {
               font-size: 0.875rem;
@@ -73,6 +92,7 @@ $box-background: rgba(255, 255, 255, 0.02);
               overflow: hidden;
               white-space: nowrap;
               text-overflow: ellipsis;
+              text-align: left;
             }
 
             a {
@@ -94,9 +114,9 @@ $box-background: rgba(255, 255, 255, 0.02);
         display: block;
         text-align: center;
         border: 1px solid $secondary-text;
-        width: 60dvw;
+        width: 80dvw;
         border-radius: 8px;
-        margin: 2rem 2rem 0 2rem;
+        margin: 2rem 0rem 0 0rem;
         background-color: $box-background;
 
         &.child {
@@ -112,11 +132,15 @@ $box-background: rgba(255, 255, 255, 0.02);
             .flex-container {
               justify-content: flex-end;
               gap: 1rem;
+              .link {
+                text-align: right;
+              }
             }
           }
         }
         .flex-container {
           width: 100%;
+          flex-wrap: wrap;
           h6 {
             font-size: 20px;
             font-weight: 500;
@@ -146,6 +170,7 @@ $box-background: rgba(255, 255, 255, 0.02);
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            text-align: left;
           }
 
           a {
@@ -166,9 +191,9 @@ $box-background: rgba(255, 255, 255, 0.02);
         display: block;
         text-align: center;
         border: 1px solid $secondary-text;
-        width: 60dvw;
+        width: 80dvw;
         border-radius: 8px;
-        margin: 2rem;
+        margin: 2rem 0 0 0;
         background-color: $box-background;
 
         text-align: left;
@@ -181,6 +206,30 @@ $box-background: rgba(255, 255, 255, 0.02);
           p {
             font-size: 1rem;
             color: border-color;
+          }
+        }
+      }
+    }
+    .link {
+      font-size: 0.875rem;
+      color: $primary-text;
+      width: 82%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      text-align: left;
+    }
+    @media screen and (max-width: 419px) {
+      .w-50 {
+        width: 100% !important;
+        margin: 0.75rem 0 !important;
+        &:nth-child(even) {
+          .flex-container {
+            justify-content: flex-start !important;
+            gap: 1rem;
+            .link {
+              text-align: left !important;
+            }
           }
         }
       }

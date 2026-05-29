@@ -1,0 +1,64 @@
+$button-background: #6366f1;
+$button-color: #ffffff;
+$border-color: rgba(255, 255, 255, 0.08);
+$nav-background-color: #0f131d;
+
+.main-header {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid $border-color;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: $nav-background-color;
+
+  .flex-container {
+    flex-wrap: nowrap;
+    // .flex-item {
+    //   display: flex;
+    //   align-items: center;
+    //   justify-content: space-between;
+    //   gap: 2rem;
+    //   width: 100%;
+    // }
+
+    .wrapper-for-profile-handoff {
+      width: 80%;
+      gap: 2rem;
+      .input-field {
+        width: 50%;
+
+        label {
+          display: none;
+        }
+      }
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .create-handoff {
+        background-color: $button-background;
+        color: $button-color;
+        border-radius: 8px;
+        border: 1px;
+        width: 12.75rem;
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      .profile-image {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        border: 1px solid $border-color;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: fill;
+        }
+      }
+    }
+  }
+}

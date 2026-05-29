@@ -9,6 +9,7 @@ $box-background: rgba(255, 255, 255, 0.02);
   flex-direction: column;
   text-align: left;
   width: 100%;
+  position: relative;
   label {
     color: $border-color;
     font-size: 0.75rem;
@@ -28,6 +29,15 @@ $box-background: rgba(255, 255, 255, 0.02);
     &.error {
       border: 1px solid #f87171;
     }
+    &.searchable {
+      padding-right: 2.5rem;
+    }
+  }
+  .search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 73%;
+    transform: translateY(-73%);
   }
   textArea {
     background-color: transparent;

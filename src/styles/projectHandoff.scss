@@ -10,7 +10,7 @@ $button-primary-color: #c0c1ff;
   display: block;
   text-align: center;
   .create-handoff-header {
-    width: 60%;
+    // width: 60%;
     text-align: left;
     margin: 1.5rem auto 0 auto;
     h1 {
@@ -29,10 +29,11 @@ $button-primary-color: #c0c1ff;
     }
   }
   section {
-    padding: 1.5rem 3rem;
+    padding: 1.5rem 0rem;
     &:last-child {
-      margin-bottom: 3rem;
-      padding-right: 1rem;
+      // margin-bottom: 3rem;
+      // padding-right: 1rem;
+      padding-top: 1rem;
     }
     &#project-details,
     &#instruction,
@@ -40,15 +41,15 @@ $button-primary-color: #c0c1ff;
     &#project-credentials {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       .box {
         padding: 1.5rem;
         display: block;
         text-align: center;
         border: 1px solid $secondary-text;
-        width: 60dvw;
+        width: 100%;
         border-radius: 8px;
-        margin: 2rem 2rem 0 2rem;
+        margin: 2rem 0rem 0 0rem;
         background-color: $box-background;
         h6 {
           font-size: 20px;
@@ -116,12 +117,12 @@ $button-primary-color: #c0c1ff;
 
     &#buttons {
       .flex-container {
-        width: 60%;
+        width: 100%;
         justify-content: flex-end;
         text-align: left;
-        margin: 1.5rem auto 0 auto;
+        // margin: 1.5rem auto 0 auto;
         gap: 2rem;
-        margin-bottom: 1.5rem;
+        // margin-bottom: 1.5rem;
         .create-project {
           background-color: $generate-color;
           color: $button-primary-color;

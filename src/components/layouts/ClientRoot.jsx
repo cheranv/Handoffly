@@ -2,11 +2,16 @@ import { Navigate, Outlet, useLoaderData, useLocation } from "react-router";
 
 import Header from "./Header";
 import Footer from "./footer";
+import RootLayout from "./Root";
 
 export default function ClientLayout() {
+  const isInternalUser = !!sessionStorage.getItem("accessToken");
+  console.log(isInternalUser);
   return (
     <>
-      {true ? (
+      {isInternalUser ? (
+        <RootLayout />
+      ) : (
         <>
           <main className="main client">
             <div className="guest-container">
@@ -15,8 +20,6 @@ export default function ClientLayout() {
           </main>
           <Footer client={true} />
         </>
-      ) : (
-        <Navigate to="login" state={{ from: location }} replace />
       )}
     </>
   );

@@ -1,0 +1,62 @@
+$link-color: #c8c6c8;
+$active-color: #6366f1;
+$nav-background-color: #0f131d;
+$border-color: rgba(255, 255, 255, 0.08);
+$box-background: rgba(255, 255, 255, 0.02);
+
+.side-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: $nav-background-color;
+  border-right: 0.5px solid $border-color;
+  width: 16rem;
+  position: fixed;
+  z-index: 100;
+  height: calc(100dvh - 5.1875rem);
+  div {
+    width: 14.375rem;
+
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    ul {
+      li {
+        list-style: none;
+        padding: 0.6875rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        a {
+          text-decoration: none;
+          color: $link-color;
+          font-size: 1rem;
+          line-height: 24px;
+          &:active {
+            color: $active-color;
+          }
+        }
+        &:hover {
+          background-color: $box-background;
+        }
+      }
+    }
+    .logout-button {
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      background: transparent;
+      color: $link-color;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 24px;
+      &:hover {
+        background-color: $box-background;
+      }
+    }
+  }
+}

@@ -4,6 +4,11 @@ import { lazy } from "react";
 import ClientLayout from "./components/layouts/ClientRoot";
 import HandoffPage from "./components/pages/HandoffPage";
 import CreateProjectHandoff from "./components/pages/CreateProjectHandoff";
+import Dashboard from "./components/pages/Dashboard";
+import { FetchProjects } from "./components/Apis/dashboard";
+import { GetProject } from "./components/Apis/HandoffPage";
+import demodata from "./components/commonComponents/demoData.json";
+
 const RootLayout = lazy(() => import("./components/layouts/Root"));
 const ErrorBoundary = lazy(() => import("./components/ErrorBoundary"));
 
@@ -23,11 +28,49 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/create" replace />, // Redirect root "/" to "/create"
+        loader: () => {
+          localStorage.removeItem("project");
+          return FetchProjects();
+        },
+        Component: Dashboard, // Redirect root "/" to "/create"
       },
       {
         path: "create", // Becomes /create
         Component: CreateProjectHandoff,
+      },
+      {
+        path: "share", // Becomes /create
+        children: [
+          // {
+          //   path: "demo",
+          //   Component: HandoffPage,
+          //   loader: () => {
+          //     localStorage.removeItem("project");
+          //     return {
+          //       data: { project: demodata },
+          //     };
+          //   },
+          // },
+          // {
+          //   path: ":id",
+          //   loader: ({ params, request }) => {
+          //     localStorage.removeItem("project");
+          //     return GetProject({ params, request });
+          //   },
+          //   Component: HandoffPage,
+          // },
+          // {
+          //   path: "preview",
+          //   loader: () => {
+          //     return {
+          //       data:
+          //         localStorage.getItem("project") &&
+          //         JSON.parse(localStorage.getItem("project")),
+          //     };
+          //   },
+          //   Component: HandoffPage,
+          // },
+        ],
       },
     ],
   },
@@ -39,11 +82,22 @@ export const router = createBrowserRouter([
     ErrorBoundary: ErrorBoundary,
     children: [
       {
-        path: ":id",
+        path: "demo",
         Component: HandoffPage,
+        loader: () => {
+          localStorage.removeItem("project");
+
+          return {
+            data: { project: demodata },
+          };
+        },
       },
       {
-        path: "demo",
+        path: ":id",
+        loader: ({ params, request }) => {
+          localStorage.removeItem("project");
+          return GetProject({ params, request });
+        },
         Component: HandoffPage,
       },
     ],
@@ -54,7 +108,14 @@ export const router = createBrowserRouter([
     ErrorBoundary: ErrorBoundary,
     children: [
       {
-        path: ":id",
+        index: true,
+        loader: () => {
+          return {
+            data:
+              localStorage.getItem("project") &&
+              JSON.parse(localStorage.getItem("project")),
+          };
+        },
         Component: HandoffPage,
       },
     ],

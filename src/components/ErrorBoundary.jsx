@@ -4,6 +4,7 @@ import ErrorPage from "./layouts/ErrorPage";
 
 export default function ErrorBoundary() {
   const error = useRouteError();
+  console.log(error);
   if (isRouteErrorResponse(error)) {
     return (
       <ErrorPage
