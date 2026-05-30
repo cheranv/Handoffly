@@ -68,12 +68,18 @@ $button-primary-color: #c0c1ff;
 
             &.two-icons {
               width: calc(100% / 2 - 1.5rem - 2.625rem);
+              @media screen and (max-width: 767px) {
+                width: 100%;
+              }
             }
             position: relative;
             .password-icons {
               position: absolute;
               top: 3.875rem;
               right: 0.625rem;
+            }
+            @media screen and (max-width: 767px) {
+              width: 100%;
             }
           }
           .w-30 {
@@ -84,9 +90,15 @@ $button-primary-color: #c0c1ff;
               top: 3.875rem;
               right: 0.625rem;
             }
+            @media screen and (max-width: 767px) {
+              width: 100%;
+            }
           }
           .w-60 {
             width: 60%;
+            @media screen and (max-width: 797px) {
+              width: 100%;
+            }
           }
           .w-10 {
             width: 10%;

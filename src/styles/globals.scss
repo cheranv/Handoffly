@@ -53,6 +53,11 @@ body {
   width: calc(100% - 12.875rem);
   padding: 0 2.5rem 2.5rem 2.5rem;
   margin-left: 16rem;
+
+  @media screen and (max-width: 991px) {
+    width: 100%;
+    margin-left: 0;
+  }
 }
 .guest-container {
   width: 100%;

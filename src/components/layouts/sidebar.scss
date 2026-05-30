@@ -59,4 +59,117 @@ $box-background: rgba(255, 255, 255, 0.02);
       }
     }
   }
+  @media screen and (max-width: 991px) {
+    display: none;
+  }
+}
+
+.hamburger-menu-button {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 32px;
+  width: max-content;
+  height: max-content;
+  z-index: 100;
+  @media screen and (max-width: 991px) {
+    display: block;
+  }
+}
+
+.mobile-view-menus {
+  position: fixed;
+  top: 0;
+  left: -280px;
+  transition: 0.3s ease;
+  z-index: 300;
+  &.open {
+    left: 0;
+  }
+
+  .mobile-navbar {
+    width: 280px;
+    height: 100vh;
+    padding: 1rem;
+
+    background: #111827;
+
+    transition: 0.3s ease;
+
+    z-index: 100;
+    .mobile-drawer {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 100%;
+      height: 100%;
+      .flex-container {
+        padding: 8px 8px 8px 15px;
+      }
+      .menu-wrapper {
+        height: inherit;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        ul {
+          li {
+            list-style: none;
+            padding: 0.6875rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            a {
+              text-decoration: none;
+              color: $link-color;
+              font-size: 1rem;
+              line-height: 24px;
+              &:active {
+                color: $active-color;
+              }
+            }
+            &:hover {
+              background-color: $box-background;
+            }
+          }
+        }
+        .logout-button {
+          padding: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+          background: transparent;
+          color: $link-color;
+          border: none;
+          cursor: pointer;
+          font-size: 1rem;
+          line-height: 24px;
+          &:hover {
+            background-color: $box-background;
+          }
+        }
+      }
+
+      .menu-close-button {
+        outline: none;
+        border: none;
+        background-color: transparent;
+        width: max-content;
+        height: max-content;
+        margin-left: auto;
+      }
+    }
+  }
+}
+
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.45);
+
+  z-index: 200;
 }

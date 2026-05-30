@@ -21,6 +21,12 @@ $nav-background-color: #0f131d;
     //   gap: 2rem;
     //   width: 100%;
     // }
+    @media screen and (max-width: 991px) {
+      .flex-item {
+        display: none;
+      }
+      justify-content: flex-end;
+    }
 
     .wrapper-for-profile-handoff {
       width: 80%;
@@ -46,6 +52,9 @@ $nav-background-color: #0f131d;
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
+        @media screen and (max-width: 991px) {
+          display: none;
+        }
       }
       .profile-image {
         width: 2rem;
