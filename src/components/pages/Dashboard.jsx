@@ -5,7 +5,7 @@ import { supabase } from "../../lib/supabase";
 import Toaster from "../commonComponents/Toaster";
 import { useLoaderData, useNavigate, useRevalidator } from "react-router";
 import Loader from "../commonComponents/Loader";
-
+import thumbnail from "../../assets/images/sampleHandoffly.png";
 const Dashboard = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -62,10 +62,7 @@ const Dashboard = () => {
           {cards?.map((card) => (
             <div className="card">
               <div className="card-icon">
-                <img
-                  src="/src/assets/images/sampleHandoffly.png"
-                  alt="project thumbnail"
-                />
+                <img src={thumbnail} alt="project thumbnail" />
               </div>
               <div className="card-content">
                 <p

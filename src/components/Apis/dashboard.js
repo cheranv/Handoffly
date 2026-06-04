@@ -4,6 +4,9 @@ export const FetchProjects = async () => {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  if (!user) {
+    return { data: [] };
+  }
   const { data, error } = await supabase
     .from("projects")
     .select("*")

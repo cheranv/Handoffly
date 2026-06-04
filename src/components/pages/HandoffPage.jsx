@@ -18,7 +18,9 @@ const HandoffPage = () => {
 
   const path = location.pathname.split("/");
 
-  const isPreview = path.includes("preview");
+  const isPreview =
+    path.includes("preview") ||
+    (path.includes("view") && !path.includes("demo"));
 
   const togglePasswordVisibility = (index) => {
     setVisiblePasswords((prev) => ({
@@ -49,7 +51,7 @@ const HandoffPage = () => {
             viewBox="0 0 30 30"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="cursor-pointer"
+            className="cursor-pointer back-arrow"
             onClick={() => window.history.back()}
           >
             <rect

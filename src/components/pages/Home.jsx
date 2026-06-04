@@ -12,7 +12,7 @@ import Footer from "../layouts/footer";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router";
 import { signInWithGoogle } from "../../lib/authHelper";
-
+import handofflyImage from "../../assets/images/screen.png";
 const Home = () => {
   const { session } = useAuth();
   const navigate = useNavigate();
@@ -139,11 +139,7 @@ const Home = () => {
                 <button className="demo-button">Book a Demo</button>
               </div>
               <div className="handoffly-image-feature">
-                <img
-                  src="/src/assets/images/screen.png"
-                  alt="handoffly image"
-                  lazy
-                ></img>
+                <img src={handofflyImage} alt="handoffly image" lazy></img>
               </div>
               <h1>Everything your client needs. In one place.</h1>
               <div className="flex-container">

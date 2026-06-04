@@ -74,7 +74,7 @@ const SideNav = () => {
               />
             </svg>
 
-            <Link to="/share/demo">Demo Handoff</Link>
+            <Link to="/view/demo">Demo Handoff</Link>
           </li>
           <li>
             <svg

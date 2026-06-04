@@ -50,7 +50,7 @@ body {
   // overflow-y: auto;
   // overflow-x: hidden;
   // margin: 0 auto;
-  width: calc(100% - 12.875rem);
+  width: calc(100% - 16rem);
   padding: 0 2.5rem 2.5rem 2.5rem;
   margin-left: 16rem;
 
@@ -61,6 +61,7 @@ body {
 }
 .guest-container {
   width: 100%;
+  margin-bottom: 1.5rem;
 }
 
 .cursor-pointer {

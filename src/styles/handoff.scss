@@ -38,7 +38,7 @@ $box-background: rgba(255, 255, 255, 0.02);
     word-break: break-word;
   }
   section {
-    padding: 1.5rem 3rem;
+    padding: 1.5rem 0rem;
     &:last-child {
       margin-bottom: 2rem;
     }
@@ -46,14 +46,16 @@ $box-background: rgba(255, 255, 255, 0.02);
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 1.5rem 0rem;
+
       .box {
         padding: 1.5rem;
         display: block;
         text-align: center;
         border: 1px solid $secondary-text;
-        width: 80dvw;
+        width: 83dvw;
         border-radius: 8px;
-        margin: 2rem 2rem 0 2rem;
+        margin: 0rem 0rem;
         background-color: $box-background;
         .flex-container {
           flex-wrap: wrap;
@@ -126,9 +128,9 @@ $box-background: rgba(255, 255, 255, 0.02);
         display: block;
         text-align: center;
         border: 1px solid $secondary-text;
-        width: 80dvw;
+        width: 83dvw;
         border-radius: 8px;
-        margin: 2rem 0rem 0 0rem;
+        margin: 0rem 0rem 0 0rem;
         background-color: $box-background;
 
         &.child {
@@ -142,9 +144,10 @@ $box-background: rgba(255, 255, 255, 0.02);
           justify-content: flex-start;
           &:nth-child(even) {
             .flex-container {
+              justify-content: flex-end;
               @media screen and (max-width: 767px) {
                 width: 100%;
-                justify-content: flex-start;
+                justify-content: space-between;
               }
               gap: 1rem;
               .link {
@@ -213,9 +216,9 @@ $box-background: rgba(255, 255, 255, 0.02);
         display: block;
         text-align: center;
         border: 1px solid $secondary-text;
-        width: 80dvw;
+        width: 83dvw;
         border-radius: 8px;
-        margin: 2rem 0 0 0;
+        margin: 0 0 0 0;
         background-color: $box-background;
 
         text-align: left;
@@ -241,14 +244,14 @@ $box-background: rgba(255, 255, 255, 0.02);
       text-overflow: ellipsis;
       text-align: left;
     }
-    @media screen and (max-width: 419px) {
+    @media screen and (max-width: 333px) {
       .w-50 {
         width: 100% !important;
         margin: 0.75rem 0 !important;
         &:nth-child(even) {
           .flex-container {
-            justify-content: flex-start !important;
-            gap: 1rem;
+            justify-content: space-between !important;
+            gap: 0.75rem !important;
             .link {
               text-align: left !important;
             }
@@ -259,5 +262,9 @@ $box-background: rgba(255, 255, 255, 0.02);
   }
   svg {
     cursor: pointer;
+    &.back-arrow {
+      margin-top: 2rem;
+      margin-right: 100%;
+    }
   }
 }

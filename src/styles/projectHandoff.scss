@@ -29,7 +29,7 @@ $button-primary-color: #c0c1ff;
     }
   }
   section {
-    padding: 1.5rem 0rem;
+    padding: 1.5rem 0rem 0 0;
     &:last-child {
       // margin-bottom: 3rem;
       // padding-right: 1rem;
@@ -49,7 +49,7 @@ $button-primary-color: #c0c1ff;
         border: 1px solid $secondary-text;
         width: 100%;
         border-radius: 8px;
-        margin: 2rem 0rem 0 0rem;
+        margin: 0rem 0rem 0 0rem;
         background-color: $box-background;
         h6 {
           font-size: 20px;
