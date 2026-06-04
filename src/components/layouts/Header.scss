@@ -55,6 +55,9 @@ $border-color: rgba(255, 255, 255, 0.08);
       cursor: pointer;
       border: none;
       outline: none;
+      align-items: center;
+      display: flex;
+      gap: 0.25rem;
     }
   }
 }

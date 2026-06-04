@@ -39,37 +39,37 @@ export const router = createBrowserRouter([
         Component: CreateProjectHandoff,
       },
       {
-        path: "share", // Becomes /create
+        path: "view", // Becomes /create
         children: [
-          // {
-          //   path: "demo",
-          //   Component: HandoffPage,
-          //   loader: () => {
-          //     localStorage.removeItem("project");
-          //     return {
-          //       data: { project: demodata },
-          //     };
-          //   },
-          // },
-          // {
-          //   path: ":id",
-          //   loader: ({ params, request }) => {
-          //     localStorage.removeItem("project");
-          //     return GetProject({ params, request });
-          //   },
-          //   Component: HandoffPage,
-          // },
-          // {
-          //   path: "preview",
-          //   loader: () => {
-          //     return {
-          //       data:
-          //         localStorage.getItem("project") &&
-          //         JSON.parse(localStorage.getItem("project")),
-          //     };
-          //   },
-          //   Component: HandoffPage,
-          // },
+          {
+            path: "demo",
+            Component: HandoffPage,
+            loader: () => {
+              localStorage.removeItem("project");
+              return {
+                data: { project: demodata },
+              };
+            },
+          },
+          {
+            path: ":id",
+            loader: ({ params, request }) => {
+              localStorage.removeItem("project");
+              return GetProject({ params, request });
+            },
+            Component: HandoffPage,
+          },
+          {
+            path: "preview",
+            loader: () => {
+              return {
+                data:
+                  localStorage.getItem("project") &&
+                  JSON.parse(localStorage.getItem("project")),
+              };
+            },
+            Component: HandoffPage,
+          },
         ],
       },
     ],

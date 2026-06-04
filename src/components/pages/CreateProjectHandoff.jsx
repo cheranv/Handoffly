@@ -232,7 +232,7 @@ const CreateProjectHandoff = () => {
     };
     localStorage.setItem("project", JSON.stringify({ project }));
 
-    Navigate("/preview");
+    Navigate("/view/preview");
   };
   const handleGenerate = async () => {
     let check = validateForm({
@@ -251,17 +251,15 @@ const CreateProjectHandoff = () => {
       });
       return;
     }
-    let handoffData = {
-      projectInfo,
-      projectLinks,
-      loginCredentials,
-      secretCredential,
-      clientGuidance,
-    };
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     const { data, error } = await supabase
       .from("projects")
       .insert([
         {
+          user_id: user.id,
           project: {
             projectInfo,
             projectLinks,
@@ -275,7 +273,7 @@ const CreateProjectHandoff = () => {
     if (error) {
     } else {
       // Navigate("/preview/1");
-      Navigate(`/share/${data[0].id}`);
+      Navigate(`/view/${data[0].id}`);
       localStorage.removeItem("project");
     }
   };

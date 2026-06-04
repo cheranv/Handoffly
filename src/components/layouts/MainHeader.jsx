@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { InputField } from "../commonComponents/InputField";
 import "./mainHeader.scss";
+import { useAuth } from "../../context/AuthContext";
 
 const MainHeader = () => {
+  const [imageError, setImageError] = useState(false);
+
+  const { session } = useAuth();
+
+  const user = session.user;
+
+  const profile = {
+    name: user.user_metadata.full_name,
+    email: user.email,
+    avatar: user.user_metadata.avatar_url,
+  };
   return (
     <div className="main-header">
       <div className="flex-container">
@@ -42,11 +54,18 @@ const MainHeader = () => {
             </svg>
             Create New Handoff
           </button>
-          <div className="profile-image">
-            <img
-              src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-              alt=""
-            />
+          <div className={`profile-image ${imageError && "error"}`}>
+            {!imageError ? (
+              <img
+                src={profile.avatar}
+                alt={profile.name}
+                onError={() => setImageError(true)}
+              />
+            ) : (
+              <div className="avatar">
+                {profile.name?.charAt(0)?.toUpperCase()}
+              </div>
+            )}
           </div>
         </div>
       </div>

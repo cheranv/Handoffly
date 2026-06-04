@@ -35,6 +35,9 @@ section {
       font-weight: 500;
       border: none;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
     }
     .demo-button {
       background-color: transparent;

@@ -3,15 +3,17 @@ import { Navigate, Outlet, useNavigation } from "react-router";
 import MainHeader from "./MainHeader";
 import SideNav from "./SideNav";
 import Loader from "../commonComponents/Loader";
+import { useAuth } from "../../context/AuthContext";
 
 export default function RootLayout() {
   const navigation = useNavigation();
-  let token =
-    sessionStorage.getItem("accessToken") &&
-    sessionStorage.getItem("accessToken");
+
+  const { session, loading } = useAuth();
+  if (loading) return <Loader show={loading} />;
+
   return (
     <>
-      {token ? (
+      {session ? (
         <>
           <Loader show={navigation.state === "loading"} />
           <MainHeader />

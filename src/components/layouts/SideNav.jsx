@@ -2,22 +2,22 @@ import React, { useEffect, useState } from "react";
 import "./sidebar.scss";
 import { Link, useNavigate } from "react-router";
 import MenuIcon from "../../assets/Icons/MenuIcon";
+import { signOut } from "../../lib/authHelper";
+import { useAuth } from "../../context/AuthContext";
 
 const SideNav = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  const { session } = useAuth();
+
   const pathname = window.location.pathname;
-  const token =
-    sessionStorage.getItem("accessToken") &&
-    sessionStorage.getItem("accessToken");
-  const Navigate = useNavigate();
-  const handleLogin = () => {
-    if (token) {
-      sessionStorage.removeItem("accessToken");
-      Navigate("/home");
-    } else {
-      sessionStorage.setItem("accessToken", "true");
-      Navigate("/");
-    }
+  const user = session.user;
+
+  const profile = {
+    name: user.user_metadata.full_name,
+    email: user.email,
+    avatar: user.user_metadata.avatar_url,
   };
 
   useEffect(() => {
@@ -93,21 +93,47 @@ const SideNav = () => {
             <Link to="/settings">Settings</Link>
           </li>
         </ul>
-        <button className="logout-button cursor-pointer" onClick={handleLogin}>
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M2 18C1.45 18 0.979167 17.8042 0.5875 17.4125C0.195833 17.0208 0 16.55 0 16V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H9V2H2V16H9V18H2ZM13 14L11.625 12.55L14.175 10H6V8H14.175L11.625 5.45L13 4L18 9L13 14Z"
-              fill="#C8C6C8"
-            />
-          </svg>
-          Logout
-        </button>
+        <div className="lower-section">
+          <hr></hr>
+          <div className="flex-container">
+            <div className={`profile-image-wrapper ${imageError && "error"}`}>
+              {!imageError ? (
+                <img
+                  src={profile.avatar}
+                  alt={profile.name}
+                  onError={() => setImageError(true)}
+                />
+              ) : (
+                <div className="avatar">
+                  {profile.name?.charAt(0)?.toUpperCase()}
+                </div>
+              )}
+            </div>
+            <div className="profile-info">
+              <p className="profile-name">
+                {session?.user?.user_metadata?.name}
+              </p>
+              <p className="profile-email">
+                {session?.user?.user_metadata?.email}
+              </p>
+            </div>
+          </div>
+          <button className="logout-button cursor-pointer" onClick={signOut}>
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 18C1.45 18 0.979167 17.8042 0.5875 17.4125C0.195833 17.0208 0 16.55 0 16V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H9V2H2V16H9V18H2ZM13 14L11.625 12.55L14.175 10H6V8H14.175L11.625 5.45L13 4L18 9L13 14Z"
+                fill="#C8C6C8"
+              />
+            </svg>
+            Logout
+          </button>
+        </div>
       </div>
     );
   };
