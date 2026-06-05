@@ -1,0 +1,81 @@
+$border-color: rgba(255, 255, 255, 0.08);
+$accent: #f67a05;
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.delete-modal {
+  width: 100%;
+  max-width: 600px;
+  background: #0f131d;
+  border: 1px solid #374151;
+  border-radius: 16px;
+  text-align: center;
+  padding: 24px;
+  .flex-container {
+    justify-content: flex-end;
+    .close-icon {
+      float: right;
+    }
+  }
+}
+
+.delete-modal h3 {
+  margin-bottom: 12px;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+.delete-modal h4 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 1rem auto;
+  word-break: break-word;
+}
+
+.delete-modal p {
+  color: #c8c6c8;
+  font-size: 1rem;
+  word-break: break-word;
+  margin-bottom: 1rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cancel-btn {
+  background-color: transparent;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 1px solid $border-color;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background: linear-gradient(
+    96deg,
+    #a92851 -11.72%,
+    #c14a36 51.77%,
+    #a35206 116.49%
+  );
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}

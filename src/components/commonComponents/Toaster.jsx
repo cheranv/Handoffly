@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { useEffect, useState } from "react";
 
-const Toaster = ({ show }) => {
+const Toaster = ({ show, text }) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const Toaster = ({ show }) => {
           fill="white"
         />
       </svg>{" "}
-      <p>Copied to clipboard</p>
+      <p>{text}</p>
     </div>,
     document.body
   );

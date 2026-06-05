@@ -42,6 +42,7 @@ const CreateProjectHandoff = () => {
   const [clientGuidance, setClientGuidance] = useState("");
   const [error, setError] = useState([]);
   const [showCopied, setShowCopied] = useState(false);
+  const [msg, setMsg] = useState("");
   const [visiblePasswords, setVisiblePasswords] = useState({});
   const [visibleKeys, setVisibleKeys] = useState({});
 
@@ -272,9 +273,15 @@ const CreateProjectHandoff = () => {
       .select();
     if (error) {
     } else {
+      setMsg("Project created successfully");
+      setShowCopied(true);
+      setTimeout(() => {
+        setShowCopied(false);
+        setMsg("");
+        Navigate(`/view/${data[0].id}`);
+        localStorage.removeItem("project");
+      }, 2000);
       // Navigate("/preview/1");
-      Navigate(`/view/${data[0].id}`);
-      localStorage.removeItem("project");
     }
   };
 
@@ -592,9 +599,11 @@ const CreateProjectHandoff = () => {
                 onClick={() => {
                   if (logs.password) {
                     navigator.clipboard.writeText(logs.password);
+                    setMsg("Copied to clipboard");
                     setShowCopied(true);
                     setTimeout(() => {
                       setShowCopied(false);
+                      setMsg("");
                     }, 1000);
                   }
                 }}
@@ -772,8 +781,10 @@ const CreateProjectHandoff = () => {
                   if (link.value) {
                     navigator.clipboard.writeText(link.value);
                     setShowCopied(true);
+                    setMsg(" Copied to clipboard");
                     setTimeout(() => {
                       setShowCopied(false);
+                      setMsg("");
                     }, 1000);
                   }
                 }}
@@ -867,7 +878,7 @@ const CreateProjectHandoff = () => {
           </button>
         </div>
       </section>
-      <Toaster show={showCopied} />
+      <Toaster show={showCopied} text={msg} />
     </div>
   );
 };

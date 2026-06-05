@@ -6,20 +6,35 @@ import Toaster from "../commonComponents/Toaster";
 import { useLoaderData, useNavigate, useRevalidator } from "react-router";
 import Loader from "../commonComponents/Loader";
 import thumbnail from "../../assets/images/sampleHandoffly.png";
+import Deletepopup from "../commonComponents/Deletepopup";
 const Dashboard = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [cards, setCards] = useState([]);
   const [showCopied, setShowCopied] = useState(false);
+  const [msg, setMsg] = useState("");
+
   const revalidator = useRevalidator();
   const { data } = useLoaderData();
-
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedProjectId, setSelectedProjectId] = useState(null);
+  const [selectedProject, setSelectedProjected] = useState(null);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const options = { month: "long", day: "numeric", year: "numeric" };
     return date.toLocaleDateString("en-US", options);
   };
 
+  const confirmDelete = async () => {
+    await handleDelete(selectedProjectId);
+
+    setShowDeleteModal(false);
+    setSelectedProjectId(null);
+  };
+  const handleDeleteClick = (id) => {
+    setSelectedProjectId(id);
+    setShowDeleteModal(true);
+  };
   const handleDelete = async (id) => {
     setLoading(true);
 
@@ -30,8 +45,14 @@ const Dashboard = () => {
     if (error) {
       console.log(error);
     } else {
-      revalidator.revalidate();
-      setLoading(true);
+      setMsg("Project deleted successfully");
+      setShowCopied(true);
+      setTimeout(() => {
+        setShowCopied(false);
+        setMsg("");
+        revalidator.revalidate();
+        setLoading(true);
+      }, 2000);
     }
   };
   useEffect(() => {
@@ -102,8 +123,10 @@ const Dashboard = () => {
                       `${window.location.origin}/share/${card?.id}`
                     );
                     setShowCopied(true);
+                    setMsg("Copied to clipboard");
                     setTimeout(() => {
                       setShowCopied(false);
+                      setMsg("");
                     }, 1000);
                   }}
                 >
@@ -151,7 +174,10 @@ const Dashboard = () => {
                     </button>
                     <button
                       className="btn cursor-pointer"
-                      onClick={() => handleDelete(card.id)}
+                      onClick={() => {
+                        handleDeleteClick(card.id);
+                        setSelectedProjected(card?.project?.projectInfo);
+                      }}
                     >
                       <svg
                         width="13"
@@ -198,8 +224,16 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <Toaster show={showCopied} />
+        <Toaster show={showCopied} text={msg} />
       </div>
+      {showDeleteModal && (
+        <Deletepopup
+          showDeleteModal={showDeleteModal}
+          setShowDeleteModal={setShowDeleteModal}
+          confirmDelete={confirmDelete}
+          selectedProject={selectedProject}
+        />
+      )}
     </>
   );
 };
