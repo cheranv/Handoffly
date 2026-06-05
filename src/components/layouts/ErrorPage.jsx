@@ -10,7 +10,9 @@ export default function ErrorPage({ icon: Icon, title, content, top }) {
           <h3>{title}</h3>
           <p>{content}</p>
         </div>
-        <Link to="/">Back to homepage</Link>
+        {title.toLowerCase() === "page not found" && (
+          <Link to="/">Back to homepage</Link>
+        )}
       </div>
     </div>
   );

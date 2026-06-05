@@ -4,12 +4,11 @@ import ErrorPage from "./layouts/ErrorPage";
 
 export default function ErrorBoundary() {
   const error = useRouteError();
-  console.log(error);
   if (isRouteErrorResponse(error)) {
     return (
       <ErrorPage
         icon={NotFoundIcon}
-        title="Oops, page not found"
+        title={error?.data || "Oops, page not found"}
         content="It seems the page you're looking for doesn't exist or has been moved. Don't worry, let's get you back on track!"
         top="2rem"
       />

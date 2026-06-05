@@ -27,10 +27,11 @@ $border-color: rgba(255, 255, 255, 0.08);
       margin-right: 0;
     }
     &:active {
-      color: #4648d4;
+      color: #c0c1ff;
     }
     &:focus-visible {
-      color: #4648d4;
+      color: #c0c1ff;
+      outline: none;
     }
   }
   .button-wrappers {

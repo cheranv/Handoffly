@@ -9,7 +9,9 @@ export const GetProject = async ({ params, request }) => {
     .eq("id", id)
     .single();
   if (error) {
-    throw error;
+    throw new Response("Project not found", {
+      status: 404,
+    });
   }
 
   return { data };

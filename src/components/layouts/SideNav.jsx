@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./sidebar.scss";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import MenuIcon from "../../assets/Icons/MenuIcon";
 import { signOut } from "../../lib/authHelper";
 import { useAuth } from "../../context/AuthContext";
@@ -8,6 +8,7 @@ import { useAuth } from "../../context/AuthContext";
 const SideNav = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const params = useParams();
 
   const { session } = useAuth();
 
@@ -28,7 +29,7 @@ const SideNav = () => {
     return (
       <div className="menu-wrapper">
         <ul>
-          <li>
+          <li className={`${pathname === "/" ? "active" : ""}`}>
             <svg
               width="18"
               height="18"
@@ -38,13 +39,21 @@ const SideNav = () => {
             >
               <path
                 d="M10 6V0H18V6H10ZM0 10V0H8V10H0ZM10 18V8H18V18H10ZM0 18V12H8V18H0ZM2 8H6V2H2V8ZM12 16H16V10H12V16ZM12 4H16V2H12V4ZM2 16H6V14H2V16Z"
-                fill="#C8C6C8"
+                fill={`${pathname === "/" ? "#6366f1" : "#C8C6C8"}`}
               />
             </svg>
 
             <Link to="/">Dashboard</Link>
           </li>
-          <li>
+          <li
+            className={`${
+              pathname === "/create" ||
+              pathname === `/view/${params?.id}` ||
+              pathname === "/view/preview"
+                ? "active"
+                : ""
+            }`}
+          >
             <svg
               width="20"
               height="20"
@@ -54,13 +63,19 @@ const SideNav = () => {
             >
               <path
                 d="M9 15H11V11H15V9H11V5H9V9H5V11H9V15ZM10 20C8.61667 20 7.31667 19.7375 6.1 19.2125C4.88333 18.6875 3.825 17.975 2.925 17.075C2.025 16.175 1.3125 15.1167 0.7875 13.9C0.2625 12.6833 0 11.3833 0 10C0 8.61667 0.2625 7.31667 0.7875 6.1C1.3125 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.3125 6.1 0.7875C7.31667 0.2625 8.61667 0 10 0C11.3833 0 12.6833 0.2625 13.9 0.7875C15.1167 1.3125 16.175 2.025 17.075 2.925C17.975 3.825 18.6875 4.88333 19.2125 6.1C19.7375 7.31667 20 8.61667 20 10C20 11.3833 19.7375 12.6833 19.2125 13.9C18.6875 15.1167 17.975 16.175 17.075 17.075C16.175 17.975 15.1167 18.6875 13.9 19.2125C12.6833 19.7375 11.3833 20 10 20ZM10 18C12.2333 18 14.125 17.225 15.675 15.675C17.225 14.125 18 12.2333 18 10C18 7.76667 17.225 5.875 15.675 4.325C14.125 2.775 12.2333 2 10 2C7.76667 2 5.875 2.775 4.325 4.325C2.775 5.875 2 7.76667 2 10C2 12.2333 2.775 14.125 4.325 15.675C5.875 17.225 7.76667 18 10 18Z"
-                fill="#C8C6C8"
+                fill={`${
+                  pathname === "/create" ||
+                  pathname === `/view/${params?.id}` ||
+                  pathname === "/view/preview"
+                    ? "#6366f1"
+                    : "#C8C6C8"
+                }`}
               />
             </svg>
 
             <Link to="/create">Create Project</Link>
           </li>
-          <li>
+          <li className={`${pathname === "/view/demo" ? "active" : ""}`}>
             <svg
               width="20"
               height="16"
@@ -70,13 +85,13 @@ const SideNav = () => {
             >
               <path
                 d="M9 12H11V7.85L12.6 9.425L14.025 8L10 4L6 8L7.425 9.4L9 7.825V12ZM2 16C1.45 16 0.979167 15.8042 0.5875 15.4125C0.195833 15.0208 0 14.55 0 14V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H18C18.55 0 19.0208 0.195833 19.4125 0.5875C19.8042 0.979167 20 1.45 20 2V14C20 14.55 19.8042 15.0208 19.4125 15.4125C19.0208 15.8042 18.55 16 18 16H2ZM2 14H18V2H2V14ZM2 14V2V14Z"
-                fill="#C8C6C8"
+                fill={`${pathname === "/view/demo" ? "#6366f1" : "#C8C6C8"}`}
               />
             </svg>
 
             <Link to="/view/demo">Demo Handoff</Link>
           </li>
-          <li>
+          {/* <li className={`${pathname === "/settings" ? "active" : ""}`}>
             <svg
               width="21"
               height="20"
@@ -91,7 +106,7 @@ const SideNav = () => {
             </svg>
 
             <Link to="/settings">Settings</Link>
-          </li>
+          </li> */}
         </ul>
         <div className="lower-section">
           <hr></hr>

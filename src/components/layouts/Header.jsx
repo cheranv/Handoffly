@@ -4,21 +4,7 @@ import { Link, useNavigate } from "react-router";
 import { signInWithGoogle } from "../../lib/authHelper";
 import { supabase } from "../../lib/supabase";
 const Header = () => {
-  const token =
-    sessionStorage.getItem("accessToken") &&
-    sessionStorage.getItem("accessToken");
-
   const Navigate = useNavigate();
-
-  const handleLogin = () => {
-    if (token) {
-      sessionStorage.removeItem("accessToken");
-      Navigate("/home");
-    } else {
-      sessionStorage.setItem("accessToken", true);
-      Navigate("/");
-    }
-  };
 
   return (
     <div className="p-16 header-container">
@@ -36,18 +22,13 @@ const Header = () => {
           />
         </svg>
       </div>
-      {!token && (
-        <div>
-          <Link>Pricing</Link>
-          <Link to="#features">Features</Link>
-          <Link to="#documentation">How it works</Link>
-        </div>
-      )}
+      <div>
+        <a href="#features">Features</a>
+        <a href="#documentation">How it works</a>
+        <a href="#pricing">Pricing</a>
+      </div>
       <div className="button-wrappers">
-        <button
-          className={`${token ? "filled-button" : "filled-button"}`}
-          onClick={signInWithGoogle}
-        >
+        <button className={` filled-button`} onClick={signInWithGoogle}>
           <svg
             width="20"
             height="20"
@@ -73,9 +54,8 @@ const Header = () => {
             />
           </svg>
 
-          {token ? "Logout" : "  Continue With Google"}
+          {"Continue With Google"}
         </button>
-        {/* {!token && <button className="filled-button">Get Started</button>} */}
       </div>
     </div>
   );
