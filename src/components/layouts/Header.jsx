@@ -3,6 +3,7 @@ import "./Header.scss";
 import { Link, useNavigate } from "react-router";
 import { signInWithGoogle } from "../../lib/authHelper";
 import { supabase } from "../../lib/supabase";
+import Logo from "../../assets/images/birdlogo.svg"
 const Header = () => {
   const Navigate = useNavigate();
 
@@ -21,7 +22,7 @@ const Header = () => {
             fill="#c0c1ff"
           />
         </svg> */}
-        <img src="/src/assets/images/birdlogo.svg"></img>
+        <img src={Logo} alt="handoffly"></img>
       </div>
       <div>
         <a href="#features">Features</a>

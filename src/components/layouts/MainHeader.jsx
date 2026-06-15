@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { InputField } from "../commonComponents/InputField";
 import "./mainHeader.scss";
 import { useAuth } from "../../context/AuthContext";
+import Logo from "../../assets/images/birdlogo.svg"
+
 
 const MainHeader = () => {
   const [imageError, setImageError] = useState(false);
@@ -31,7 +33,7 @@ const MainHeader = () => {
               fill="#c0c1ff"
             />
           </svg> */}
-          <img src="/src/assets/images/birdlogo.svg"></img>
+                <img src={Logo} alt="handoffly"></img>
         </div>
         <div className="wrapper-for-profile-handoff">
           {/* <InputField
