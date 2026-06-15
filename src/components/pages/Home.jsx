@@ -86,6 +86,9 @@ const Home = () => {
 
   useEffect(() => {
     if (session) {
+      console.log("isLogin", sessionStorage.getItem("isLogin"));
+      sessionStorage.setItem("isLogin", true);
+
       navigate("/");
     }
   }, [session, navigate]);
