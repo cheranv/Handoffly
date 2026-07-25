@@ -184,8 +184,7 @@ const SideNav = () => {
                 />
 
               </svg> */}
-              <img src="/src/assets/images/birdlogo.svg"></img>
-
+             <img src={handofflyImage}></img>
               <button
                 className="menu-close-button cursor-pointer"
                 onClick={() => setMobileNavOpen(false)}
