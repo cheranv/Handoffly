@@ -4,6 +4,8 @@ import { Link, useNavigate, useParams } from "react-router";
 import MenuIcon from "../../assets/Icons/MenuIcon";
 import { signOut } from "../../lib/authHelper";
 import { useAuth } from "../../context/AuthContext";
+import Logo from "../../assets/images/birdlogo.svg"
+
 
 const SideNav = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -184,7 +186,7 @@ const SideNav = () => {
                 />
 
               </svg> */}
-             <img src={handofflyImage}></img>
+             <img src={Logo}></img>
               <button
                 className="menu-close-button cursor-pointer"
                 onClick={() => setMobileNavOpen(false)}
